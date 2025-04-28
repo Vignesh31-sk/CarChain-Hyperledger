@@ -43,22 +43,38 @@ cd fabric-samples/test-network
 ./network.sh up createChannel -c mychannel -ca
 ```
 
-### 2. Deploy the Chaincode
+### 2. Package the Chaincode
 
-Before deploying the chaincode, you need to update the scripts with your local Fabric samples path:
+```bash
+./package_chaincode.sh
+```
+
+### 3. Deploy the Chaincode
 
 ```bash
 # IMPORTANT: Edit the script files to update the FABRIC_SAMPLES_PATH variable to match your fabric samples actual path before running these commands
 
 # Once path is updated, run:
-
-./package_chaincode.sh
 ./deploy_chaincode.sh -i
 ```
 
 The `-i` flag initializes the ledger with sample data.
 
-### 3. Test the Chaincode
+#### Test Script Options
+
+```bash
+./deploy_chaincode.sh [options]
+```
+
+Available options:
+
+- `-f <path>`: Path to fabric-samples directory (default: "/home/viki/Programming/Projects/BCT-Mini/fabric-samples")
+- `-c <channel>`: Channel name (default: "mychannel")
+- `-n <name>`: Chaincode name (default: "carshowroom")
+- `-i`: Initialize the ledger with sample data after deployment
+- `-h`: Print help message
+
+### 4. Test the Chaincode
 
 ```bash
 ./test_chaincode.sh
@@ -74,7 +90,7 @@ This will run through all the core functions of the chaincode:
 #### Test Script Options
 
 ```bash
-./test_carshowroom.sh [options]
+./test_chaincode.sh [options]
 ```
 
 Available options:

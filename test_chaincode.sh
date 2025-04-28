@@ -195,6 +195,13 @@ test_transfer_car_ownership() {
   fi
 }
 
+# Function to add a delay between operations
+add_delay() {
+  local seconds=$1
+  echo -e "${BLUE}Waiting for ${seconds} seconds to allow transaction to be committed...${NC}"
+  sleep ${seconds}
+}
+
 # Run all tests
 main() {
   parse_options "$@"
@@ -214,9 +221,11 @@ main() {
 
   # Test createCar
   test_create_car "CAR007" "Porsche" "911" "Silver" "2023" "Chris"
+  add_delay 5  # Add 5 second delay after creation
 
   # Test transferCarOwnership
   test_transfer_car_ownership "CAR001" "Alex"
+  add_delay 5  # Add 5 second delay after transfer
 
   # Final verification - query all cars again to see all changes
   echo -e "\n${YELLOW}Final Verification - Query All Cars${NC}"
