@@ -1,0 +1,50 @@
+# Gradle
+.gradle/
+build/
+**/build/
+gradle-app.setting
+.gradletasknamecache
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Java specific
+*.class
+*.log
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+.classpath
+.project
+.settings/
+bin/
+out/
+.factorypath
+
+# Hyperledger Fabric
+/vendor/
+/fabric-ca-client/
+/node_modules/
+.nvmrc
+wallet/
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*~
+
+# Package files
+*.tar.gz
+*.zip
