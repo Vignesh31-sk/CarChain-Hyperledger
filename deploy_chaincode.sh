@@ -15,7 +15,7 @@ CC_INIT_FCN="initLedger"
 CC_END_POLICY="OR('Org1MSP.peer','Org2MSP.peer')"
 CC_COLL_CONFIG=""
 # Fixed the path to be absolute instead of relative
-FABRIC_SAMPLES_PATH="/home/viki/Programming/Projects/BCT-Mini/fabric-samples"
+FABRIC_SAMPLES_PATH="/home/viki/BCT_Mini/fabric-samples"
 
 # Print usage message
 function printHelp() {
@@ -25,7 +25,7 @@ function printHelp() {
   echo "    -n <chaincode name> - Chaincode name (default \"carshowroom\")"
   echo "    -v <chaincode version> - Chaincode version (default \"1.0.0\")"
   echo "    -s <sequence> - Version sequence (default 1)"  # Updated help text
-  echo "    -f <path to fabric samples> - Path to fabric-samples directory (default \"/home/viki/Programming/Projects/BCT-Mini/fabric-samples\")"
+  echo "    -f <path to fabric samples> - Path to fabric-samples directory (default \"/home/viki/BCT_Mini/fabric-samples\")"
   echo "    -i - Initialize the chaincode with initLedger function"
   echo "    -h - Print this help message"
   echo ""
@@ -90,6 +90,8 @@ export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=${FABRIC_SAMPLES_PATH}/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 export CORE_PEER_MSPCONFIGPATH=${FABRIC_SAMPLES_PATH}/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 export CORE_PEER_ADDRESS=localhost:7051
+export CORE_CHAINCODE_STARTUPTIMEOUT=120s
+export CORE_PEER_CHAINCODE_EXECUTETIMEOUT=900s
 
 # Package the chaincode
 packageChaincode() {
@@ -132,7 +134,7 @@ installChaincode() {
     echo "Chaincode already installed. Skipping installation."
   else
     set -x
-    peer lifecycle chaincode install ${CC_NAME}.tar.gz
+    peer lifecycle chaincode install ${CC_NAME}.tar.gz --connTimeout ${CORE_PEER_CHAINCODE_EXECUTETIMEOUT}
     res=$?
     { set +x; } 2>/dev/null
     echo "Chaincode installation completed with status: $res"

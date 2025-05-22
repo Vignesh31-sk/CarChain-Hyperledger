@@ -12,32 +12,38 @@ This project implements a car showroom management system using Hyperledger Fabri
 ## Project Structure
 
 ```
-/car-showroom-chaincode/
-├── src/
-│   └── main/
-│       └── java/
-│           └── org/
-│               └── example/
-│                   ├── CarContract.java      # Main chaincode implementation
-│                   ├── Car.java              # Car asset definition
-│                   └── CarQueryResult.java   # Query result wrapper class
+/CarChain-Hyperledger/
+
+├──app/
+│   └── src/
+│       └── main/
+│           └── java/
+│               └── org/
+│                   └── example/
+│                       ├── CarShowroomChaincode.java  # Main chaincode implementation
+│                       ├── Car.java                   # Car asset definition
+│                       └── CarShowroomContract.java   # Main contract
+├── gradle/                                   # Gradle configuration files
 ├── build.gradle                              # Gradle build configuration
 ├── settings.gradle                           # Gradle settings
 ├── package_chaincode.sh                      # Script to package the chaincode
+├── chaincode_lifecycle.sh                    # Script to manage chaincode lifecycle.
+├── debug_car_chaincode.sh                    # Script to manage chaincode functions.
 ├── test_chaincode.sh                         # Script to test the chaincode
-└── deploy_chaincode.sh                       # Script to deploy chaincode to network
+└── deploy_chaincode.sh                       # Script to deploy chaincode to network.
+
 ```
 
 ## Setup Instructions
 
+> :warning: Edit the script files to update the variables before running these commands or pass the required variables as arguments
+
 ### 1. Start the Fabric Test Network
 
 ```bash
-cd fabric-samples/test-network
+cd /path/to/fabric-samples/test-network
 
 # Make sure to replace above path with your path to fabric-samples
-# export PATH=${PWD}/../bin:$PATH
-# export FABRIC_CFG_PATH=$PWD/../config/
 
 ./network.sh down
 ./network.sh up createChannel -c mychannel -ca
@@ -52,19 +58,10 @@ cd fabric-samples/test-network
 ### 3. Deploy the Chaincode
 
 ```bash
-# IMPORTANT: Edit the script files to update the FABRIC_SAMPLES_PATH variable to match your fabric samples actual path before running these commands
-
-# Once path is updated, run:
 ./deploy_chaincode.sh -i
 ```
 
 The `-i` flag initializes the ledger with sample data.
-
-#### Test Script Options
-
-```bash
-./deploy_chaincode.sh [options]
-```
 
 Available options:
 
@@ -87,20 +84,57 @@ This will run through all the core functions of the chaincode:
 - Create a new car
 - Transfer car ownership
 
-#### Test Script Options
-
-```bash
-./test_chaincode.sh [options]
-```
-
 Available options:
 
-- `-f <path>`: Path to fabric-samples directory (default: "/home/viki/Programming/Projects/BCT-Mini/fabric-samples")
+- `-f <path>`: Path to fabric-samples directory (default: "/home/viki/BCT_Mini/fabric-samples")
 - `-c <channel>`: Channel name (default: "mychannel")
 - `-n <name>`: Chaincode name (default: "carshowroom")
 - `-h`: Print help message
 
+### 4. Chaincode Lifecycle Management
+
+This script provides tools to manage the chaincode lifecycle in Hyperledger Fabric.
+
+It handles packaging, installing, approving, and committing chaincode definitions
+
+- Package Chaincode
+- Install Chaincode
+- Get Package ID
+- Approve Chaincode for Organization
+- Check Commit Readiness
+- Commit Chaincode Definition
+- Query Committed Chaincode
+- Check Peer Status
+
+```bash
+./chaincode_lifecycle.sh 
+```
+
+Available options:
+
+- `-f <path>`: Path to fabric-samples directory (default "/home/viki/BCT_Mini/fabric-samples")
+- `-c <channel name>`: Name of channel (default "mychannel")
+- `-n <chaincode name>`: Chaincode name (default "carshowroom")
+- `-v <chaincode version>`: Chaincode version (default "1.0.0")
+- `-s <sequence>`: Version sequence (default 1)
+- `-h`: Print this help message
+
 ## Chaincode Functions
+
+This script allows for individual invocation of car showroom chaincode functions for testing and debugging purposes
+
+It provides a simple menu-driven interface to invoke different chaincode functions
+
+```bash
+./debug_car_chaincode.sh 
+```
+
+Available options:
+
+- `-f <path>`: Path to fabric-samples directory (default "/home/viki/BCT_Mini/fabric-samples")
+- `-c <channel name>`: Name of channel (default "mychannel")
+- `-n <chaincode name>`: Chaincode name (default "carshowroom")
+- `-h`: Print this help message
 
 The chaincode provides the following functions:
 

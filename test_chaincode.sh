@@ -13,7 +13,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Default paths
-FABRIC_SAMPLES_PATH="/home/viki/Programming/Projects/BCT-Mini/fabric-samples"
+FABRIC_SAMPLES_PATH="/home/viki/BCT_Mini/fabric-samples"
 CHANNEL_NAME="mychannel"
 CC_NAME="carshowroom"
 

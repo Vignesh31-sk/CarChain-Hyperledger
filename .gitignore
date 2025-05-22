@@ -48,3 +48,4 @@ Thumbs.db
 # Package files
 *.tar.gz
 *.zip
+chaincode-package/
